@@ -23,7 +23,8 @@ Pack Project:
       . "$env:CI_PROJECT_DIR\UiPathPack.ps1" "$env:CI_PROJECT_DIR\project.json" "$env:CI_PROJECT_DIR\output_packages\"  -autoVersion
 
   artifacts:
-    paths: [ "$env:CI_PROJECT_DIR\\output_packages\\" ]
+    paths:
+      - "output_packages\\"
     expire_in: 30 days
 
 Test Package:
@@ -35,7 +36,8 @@ Test Package:
   script:
     - . "$env:CI_PROJECT_DIR\UiPathRunTest.ps1" "http://cloud.uipath.com" AbdullahTenant -userKey $env:uipathUserKey -account_name $env:uipathAccountName -project_path "$env:CI_PROJECT_DIR\project.json" -result_path "$env:CI_PROJECT_DIR\junit_package_test_result.xml" -out junit  -folder_organization_unit DevWork
   artifacts:
-    paths: [ "$env:CI_PROJECT_DIR\\output_results\\" ]
+    paths:
+      - "output_results\\"
     reports:
       junit: junit_package_test_result.xml
 
@@ -48,7 +50,8 @@ Run Testset:
   script:
     - . "$env:CI_PROJECT_DIR\UiPathRunTest.ps1" "http://cloud.uipath.com" AbdullahTenant -userKey $env:uipathUserKey -account_name $env:uipathAccountName -testset "CircleCI-TestSet" -result_path "$env:CI_PROJECT_DIR\output_results\junit_testset_result.xml" -out junit  -folder_organization_unit DevWork
   artifacts:
-    paths: [ "$env:CI_PROJECT_DIR\\output_results\\" ]
+    paths:
+      - "output_results\\"
     reports:
       junit: junit_testset_result.xml
 
